@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="GB2312"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="dbService" class="com.hannah.web.server.serviceimpl.DbServiceImpl" />
+
+	<bean id="baseDao" class="com.hannah.web.server.daoimpl.BaseDaoImpl"
+		scope="singleton">
+		<property name="sqlMapClient" ref="sqlMapClient" />
+	</bean>
+
+	<bean id="provinceDao" class="com.hannah.web.server.daoimpl.ProvinceDaoImpl"
+		parent="baseDao" />
+	<bean id="provinceService" class="com.hannah.web.server.serviceimpl.ProvinceServiceImpl"
+		scope="singleton">
+		<property name="baseDao" ref="provinceDao" />
+	</bean>
+
+	<bean id="cityDao" class="com.hannah.web.server.daoimpl.CityDaoImpl"
+		parent="baseDao" />
+	<bean id="cityService" class="com.hannah.web.server.serviceimpl.CityServiceImpl"
+		scope="singleton">
+		<property name="baseDao" ref="cityDao" />
+	</bean>
+
+	<bean id="areaDao" class="com.hannah.web.server.daoimpl.AreaDaoImpl"
+		parent="baseDao" />
+	<bean id="areaService" class="com.hannah.web.server.serviceimpl.AreaServiceImpl"
+		scope="singleton">
+		<property name="baseDao" ref="areaDao" />
+	</bean>
+
+</beans>

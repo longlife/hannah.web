@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+
+<sqlMap namespace="AREA">
+
+	<resultMap id="areaResult" class="com.hannah.web.common.model.Area">
+		<result column="ID" property="id" jdbcType="INT" />
+		<result column="CODE" property="code" jdbcType="VARCHAR" />
+		<result column="NAME" property="name" jdbcType="VARCHAR" />
+		<result column="CITY_CODE" property="cityCode" jdbcType="VARCHAR" />
+		<result column="PINYIN" property="pinyin" jdbcType="VARCHAR" />
+		<result column="SIMPLE_CODE" property="simpleCode" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<select id="select" resultMap="areaResult" parameterClass="java.util.Map">
+		select * from AREA
+		<dynamic prepend="where">
+			<isNotNull prepend="and" property="id" >
+				ID = #id#
+			</isNotNull>
+			<isNotNull prepend="and" property="code" >
+				CODE = #code#
+			</isNotNull>
+			<isNotNull prepend="and" property="name" >
+				NAME = #name#
+			</isNotNull>
+			<isNotNull prepend="and" property="cityCode" >
+				CITY_CODE = #cityCode#
+			</isNotNull>
+			<isNotNull prepend="and" property="pinyin" >
+				PINYIN = #pinyin#
+			</isNotNull>
+			<isNotNull prepend="and" property="simpleCode" >
+				SIMPLE_CODE = #simpleCode#
+			</isNotNull>
+		</dynamic>
+		order by CODE
+	</select>
+
+	<select id="selectCount" resultClass="java.math.BigDecimal" parameterClass="java.util.Map">
+		select count(1) from AREA
+		<dynamic prepend="where">
+			<isNotNull prepend="and" property="id" >
+				ID = #id#
+			</isNotNull>
+			<isNotNull prepend="and" property="code" >
+				CODE = #code#
+			</isNotNull>
+			<isNotNull prepend="and" property="name" >
+				NAME = #name#
+			</isNotNull>
+			<isNotNull prepend="and" property="cityCode" >
+				CITY_CODE = #cityCode#
+			</isNotNull>
+			<isNotNull prepend="and" property="pinyin" >
+				PINYIN = #pinyin#
+			</isNotNull>
+			<isNotNull prepend="and" property="simpleCode" >
+				SIMPLE_CODE = #simpleCode#
+			</isNotNull>
+		</dynamic>
+	</select>
+
+	<select id="selectPagingData" resultMap="areaResult" parameterClass="java.util.Map">
+	select pt.* from (
+		select * from AREA
+		<dynamic prepend="where">
+			<isNotNull prepend="and" property="id" >
+				ID = #id#
+			</isNotNull>
+			<isNotNull prepend="and" property="code" >
+				CODE = #code#
+			</isNotNull>
+			<isNotNull prepend="and" property="name" >
+				NAME = #name#
+			</isNotNull>
+			<isNotNull prepend="and" property="cityCode" >
+				CITY_CODE = #cityCode#
+			</isNotNull>
+			<isNotNull prepend="and" property="pinyin" >
+				PINYIN = #pinyin#
+			</isNotNull>
+			<isNotNull prepend="and" property="simpleCode" >
+				SIMPLE_CODE = #simpleCode#
+			</isNotNull>
+		</dynamic>
+		order by CODE
+	) pt limit #startRow#, #count#
+	</select>
+
+	<insert id="insert" parameterClass="com.hannah.web.common.model.Area">
+		insert into AREA (ID, CODE, NAME, CITY_CODE, PINYIN, SIMPLE_CODE)
+		values (#id#, #code#, #name#, #cityCode#, #pinyin#, #simpleCode#)
+	</insert>
+
+	<delete id="delete" parameterClass="com.hannah.web.common.model.Area">
+		delete AREA where ID = #id#
+	</delete>
+
+	<update id="update" parameterClass="com.hannah.web.common.model.Area">
+		update AREA set CODE = #code#, NAME = #name#, CITY_CODE = #cityCode#, PINYIN = #pinyin#, SIMPLE_CODE = #simpleCode#
+		where ID = #id#
+	</update>
+
+</sqlMap>

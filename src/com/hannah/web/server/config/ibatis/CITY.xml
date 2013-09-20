@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+
+<sqlMap namespace="CITY">
+
+	<resultMap id="cityResult" class="com.hannah.web.common.model.City">
+		<result column="ID" property="id" jdbcType="INT" />
+		<result column="CODE" property="code" jdbcType="VARCHAR" />
+		<result column="NAME" property="name" jdbcType="VARCHAR" />
+		<result column="PROVINCE_CODE" property="provinceCode" jdbcType="VARCHAR" />
+		<result column="PINYIN" property="pinyin" jdbcType="VARCHAR" />
+		<result column="SIMPLE_CODE" property="simpleCode" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<select id="select" resultMap="cityResult" parameterClass="java.util.Map">
+		select * from CITY
+		<dynamic prepend="where">
+			<isNotNull prepend="and" property="id" >
+				ID = #id#
+			</isNotNull>
+			<isNotNull prepend="and" property="code" >
+				CODE = #code#
+			</isNotNull>
+			<isNotNull prepend="and" property="name" >
+				NAME = #name#
+			</isNotNull>
+			<isNotNull prepend="and" property="provinceCode" >
+				PROVINCE_CODE = #provinceCode#
+			</isNotNull>
+			<isNotNull prepend="and" property="pinyin" >
+				PINYIN = #pinyin#
+			</isNotNull>
+			<isNotNull prepend="and" property="simpleCode" >
+				SIMPLE_CODE = #simpleCode#
+			</isNotNull>
+		</dynamic>
+		order by CODE
+	</select>
+
+	<select id="selectCount" resultClass="java.math.BigDecimal" parameterClass="java.util.Map">
+		select count(1) from CITY
+		<dynamic prepend="where">
+			<isNotNull prepend="and" property="id" >
+				ID = #id#
+			</isNotNull>
+			<isNotNull prepend="and" property="code" >
+				CODE = #code#
+			</isNotNull>
+			<isNotNull prepend="and" property="name" >
+				NAME = #name#
+			</isNotNull>
+			<isNotNull prepend="and" property="provinceCode" >
+				PROVINCE_CODE = #provinceCode#
+			</isNotNull>
+			<isNotNull prepend="and" property="pinyin" >
+				PINYIN = #pinyin#
+			</isNotNull>
+			<isNotNull prepend="and" property="simpleCode" >
+				SIMPLE_CODE = #simpleCode#
+			</isNotNull>
+		</dynamic>
+	</select>
+
+	<select id="selectPagingData" resultMap="cityResult" parameterClass="java.util.Map">
+	select pt.* from (
+		select * from CITY
+		<dynamic prepend="where">
+			<isNotNull prepend="and" property="id" >
+				ID = #id#
+			</isNotNull>
+			<isNotNull prepend="and" property="code" >
+				CODE = #code#
+			</isNotNull>
+			<isNotNull prepend="and" property="name" >
+				NAME = #name#
+			</isNotNull>
+			<isNotNull prepend="and" property="provinceCode" >
+				PROVINCE_CODE = #provinceCode#
+			</isNotNull>
+			<isNotNull prepend="and" property="pinyin" >
+				PINYIN = #pinyin#
+			</isNotNull>
+			<isNotNull prepend="and" property="simpleCode" >
+				SIMPLE_CODE = #simpleCode#
+			</isNotNull>
+		</dynamic>
+		order by CODE
+	) pt limit #startRow#, #count#
+	</select>
+
+	<insert id="insert" parameterClass="com.hannah.web.common.model.City">
+		insert into CITY (ID, CODE, NAME, PROVINCE_CODE, PINYIN, SIMPLE_CODE)
+		values (#id#, #code#, #name#, #provinceCode#, #pinyin#, #simpleCode#)
+	</insert>
+
+	<delete id="delete" parameterClass="com.hannah.web.common.model.City">
+		delete CITY where ID = #id#
+	</delete>
+
+	<update id="update" parameterClass="com.hannah.web.common.model.City">
+		update CITY set CODE = #code#, NAME = #name#, PROVINCE_CODE = #provinceCode#, PINYIN = #pinyin#, SIMPLE_CODE = #simpleCode#
+		where ID = #id#
+	</update>
+
+</sqlMap>
